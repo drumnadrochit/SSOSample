@@ -56,7 +56,8 @@ param tags object = {
 }
 
 var trimmedPrefix = toLower(replace(namePrefix, '-', ''))
-var acrName = take('${trimmedPrefix}acr', 50)
+var acrBase = empty(trimmedPrefix) ? 'ssokcdlab' : trimmedPrefix
+var acrName = take('${acrBase}acr000', 50)
 var containerAppName = '${namePrefix}-app'
 var containerEnvName = '${namePrefix}-cae'
 var logAnalyticsName = '${namePrefix}-law'
@@ -69,12 +70,7 @@ var vmName = '${namePrefix}-vm'
 var extensionName = 'bootstrapKcdLab'
 var containerImage = '${acr.properties.loginServer}/${containerImageRepository}:${containerImageTag}'
 var publishedHarnessUrl = 'https://${containerApp.properties.configuration.ingress.fqdn}'
-var bootstrapScript = replace(loadTextContent('./scripts/bootstrap-kcd-lab.ps1'), '''', '''''')
-var bootstrapCommand = '''
-powershell -ExecutionPolicy Bypass -Command "$script = @'
-${bootstrapScript}
-'@; New-Item -Path C:\Lab -ItemType Directory -Force | Out-Null; Set-Content -Path C:\Lab\bootstrap-kcd-lab.ps1 -Value $script -Force; & C:\Lab\bootstrap-kcd-lab.ps1 -DomainName '${domainName}' -NetBiosName '${netbiosName}' -SafeModeAdministratorPassword '${safeModeAdministratorPassword}' -PublishedTestHarnessUrl '${publishedHarnessUrl}'"
-'''
+var bootstrapCommand = 'powershell -ExecutionPolicy Bypass -Command "Install-WindowsFeature -Name AD-Domain-Services,RSAT-AD-PowerShell,Web-Server,Web-Windows-Auth -IncludeManagementTools; Install-ADDSForest -DomainName \'${domainName}\' -DomainNetbiosName \'${netbiosName}\' -InstallDns -NoRebootOnCompletion -SafeModeAdministratorPassword (ConvertTo-SecureString \'${safeModeAdministratorPassword}\' -AsPlainText -Force) -Force; New-Item -Path C:\\Lab -ItemType Directory -Force | Out-Null; Set-Content -Path C:\\Lab\\NextSteps.txt -Value \'Open ${publishedHarnessUrl} after VM reboot and connector setup.\'"'
 
 resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: logAnalyticsName
@@ -122,7 +118,7 @@ resource containerEnvironment 'Microsoft.App/managedEnvironments@2024-03-01' = {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
         customerId: logAnalytics.properties.customerId
-        sharedKey: listKeys(logAnalytics.id, logAnalytics.apiVersion).primarySharedKey
+        sharedKey: logAnalytics.listKeys().primarySharedKey
       }
     }
     zoneRedundant: false
@@ -342,7 +338,8 @@ resource vm 'Microsoft.Compute/virtualMachines@2024-07-01' = {
 }
 
 resource bootstrapExtension 'Microsoft.Compute/virtualMachines/extensions@2022-11-01' = {
-  name: '${vm.name}/${extensionName}'
+  name: extensionName
+  parent: vm
   location: location
   tags: tags
   properties: {
@@ -355,11 +352,6 @@ resource bootstrapExtension 'Microsoft.Compute/virtualMachines/extensions@2022-1
       commandToExecute: bootstrapCommand
     }
   }
-  dependsOn: [
-    vm
-    containerApp
-    acrPullAssignment
-  ]
 }
 
 output acrLoginServer string = acr.properties.loginServer
