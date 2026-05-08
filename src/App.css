@@ -1,0 +1,265 @@
+.app-shell {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.hero-panel,
+.preset-panel,
+.config-card,
+.results-card,
+.note-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.hero-panel {
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(255, 179, 71, 0.35), transparent 30%),
+    linear-gradient(135deg, rgba(11, 86, 84, 0.98), rgba(6, 47, 54, 0.98));
+  color: #f7f2e8;
+}
+
+.hero-panel h1,
+.hero-panel h2,
+.hero-panel p,
+.hero-panel span,
+.hero-panel .eyebrow {
+  color: inherit;
+}
+
+.eyebrow,
+.section-label,
+.summary-label,
+.output-label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+}
+
+.hero-copy {
+  max-width: 56rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-meta span {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(247, 242, 232, 0.16);
+  border-radius: 999px;
+  background: rgba(247, 242, 232, 0.08);
+}
+
+.preset-panel,
+.config-card,
+.results-card,
+.note-card {
+  padding: 1.5rem;
+}
+
+.preset-grid,
+.notes-grid,
+.workspace-grid,
+.field-grid,
+.option-grid,
+.checks-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.preset-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-top: 1rem;
+}
+
+.preset {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: #fffaf2;
+  color: var(--text-h);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.preset:hover,
+.preset:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.preset.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.workspace-grid {
+  grid-template-columns: minmax(320px, 1.15fr) minmax(320px, 0.85fr);
+  align-items: start;
+}
+
+.card-header {
+  margin-bottom: 1.25rem;
+}
+
+.field-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field-grid label,
+.select-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.option-grid {
+  margin-top: 1rem;
+}
+
+.toggle {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-soft);
+}
+
+.toggle input {
+  margin-top: 0.2rem;
+}
+
+input,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fffefa;
+  font: inherit;
+  color: var(--text-h);
+}
+
+input:focus,
+select:focus,
+.preset:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.summary {
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.summary-good {
+  background: rgba(33, 128, 79, 0.12);
+  border: 1px solid rgba(33, 128, 79, 0.28);
+}
+
+.summary-warning {
+  background: rgba(211, 129, 26, 0.14);
+  border: 1px solid rgba(211, 129, 26, 0.28);
+}
+
+.summary-critical {
+  background: rgba(176, 54, 48, 0.12);
+  border: 1px solid rgba(176, 54, 48, 0.28);
+}
+
+.identity-output {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: 20px;
+  background: var(--surface-soft);
+}
+
+.identity-output strong,
+.identity-output code {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.check {
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: #fffdf8;
+}
+
+.check h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.check-warning {
+  border-color: rgba(211, 129, 26, 0.28);
+}
+
+.check-critical {
+  border-color: rgba(176, 54, 48, 0.28);
+}
+
+.notes-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.note-card ul,
+.note-card ol {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.note-card li + li {
+  margin-top: 0.65rem;
+}
+
+.note-card.emphasis {
+  background:
+    linear-gradient(180deg, rgba(255, 222, 173, 0.32), transparent 38%),
+    var(--panel);
+}
+
+@media (max-width: 900px) {
+  .workspace-grid,
+  .notes-grid,
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell {
+    padding: 1rem;
+  }
+
+  .hero-panel,
+  .preset-panel,
+  .config-card,
+  .results-card,
+  .note-card {
+    padding: 1.1rem;
+    border-radius: 22px;
+  }
+}

@@ -1,0 +1,12 @@
+using './main.bicep'
+
+param namePrefix = 'ssokcdlab'
+param adminUsername = 'azureadmin'
+param adminPassword = 'ReplaceWithStrongPassword!123'
+param safeModeAdministratorPassword = 'ReplaceWithDifferentStrongPassword!123'
+param allowedRdpSourceCidr = '*'
+param domainName = 'corp.contoso.local'
+param netbiosName = 'CORP'
+param vmSize = 'Standard_D4s_v5'
+param containerImageRepository = 'kcd-test-harness'
+param containerImageTag = 'latest'

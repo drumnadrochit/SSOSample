@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --text: #49525a;
+  --text-h: #10212a;
+  --bg: #f4efe6;
+  --panel: rgba(255, 252, 246, 0.82);
+  --surface-soft: #f7f1e7;
+  --border: rgba(16, 33, 42, 0.12);
+  --border-strong: rgba(16, 33, 42, 0.24);
+  --code-bg: #efe8dc;
+  --accent: #c66a1e;
+  --accent-soft: rgba(198, 106, 30, 0.12);
+  --shadow: 0 20px 45px rgba(25, 41, 35, 0.08);
+  --sans: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --heading: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', Consolas, monospace;
+  font: 17px/1.5 var(--sans);
+  letter-spacing: 0.01em;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 214, 153, 0.85), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(73, 150, 143, 0.24), transparent 28%),
+    var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+#root {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100svh;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  line-height: 0.98;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  line-height: 1.1;
+}
+
+h3 {
+  font-family: var(--heading);
+  color: var(--text-h);
+}
+
+p {
+  margin: 0;
+}
+
+strong {
+  color: var(--text-h);
+}
+
+code {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 10px;
+  color: var(--text-h);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  padding: 0.45rem 0.65rem;
+  background: var(--code-bg);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  :root {
+    font-size: 16px;
+  }
+}
